@@ -22,14 +22,14 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Baixar e gerar o executável do Gradle (Gradlew)
-      run: npm install -g gradle && gradle wrapper
+    - name: Executar o Build com Gradle Build Action
+      uses: gradle/actions/setup-gradle@v4
+      with:
+        build-root-directory: .
+        cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }} # Opcional, o github ignora se vazio
 
-    - name: Dar permissão de execução ao Gradle
-      run: chmod +x gradlew
-
-    - name: Compilar o APK (Build)
-      run: ./gradlew assembleDebug
+    - name: Forçar Compilação do APK
+      run: gradle assembleDebug
 
     - name: Salvar o APK gerado (Artifact)
       uses: actions/upload-artifact@v4
