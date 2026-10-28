@@ -24,11 +24,8 @@ jobs:
 
     - name: Executar o Build com Gradle Build Action
       uses: gradle/actions/setup-gradle@v4
-      with:
-        build-root-directory: .
-        cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }} # Opcional, o github ignora se vazio
 
-    - name: Forçar Compilação do APK
+    - name: Forçar Compilação do APK na Raiz
       run: gradle assembleDebug
 
     - name: Salvar o APK gerado (Artifact)
